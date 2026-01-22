@@ -1,0 +1,32 @@
+{
+  "name": "yugo/filament-service-pinger",
+  "description": "A simple service uptime monitor built natively for Filament.",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Yugo\\FilamentServicePinger\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Yugo",
+      "email": "dedy.yugo.purwanto@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^8.2|^8.3",
+    "filament/filament": "^4.1"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Yugo\\FilamentServicePinger\\Provider"
+      ]
+    }
+  },
+  "require-dev": {
+    "laravel/pint": "^1.27"
+  }
+}

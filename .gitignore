@@ -1,0 +1,27 @@
+/vendor
+/.idea
+/.vscode
+/.zed
+
+composer.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PHPUnit / Pest
+.phpunit.result.cache
+.phpunit.cache
+coverage/
+.clover
+
+# Static analysis
+.phpstan.cache
+.psalm.cache
+
+# Build / cache
+*.log
+
+# Temporary
+*.tmp
+*.bak
