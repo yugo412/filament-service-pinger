@@ -147,11 +147,14 @@ class ServiceResource extends Resource
                     ->toggleable(),
             ])
             ->filters([
-                TernaryFilter::make('is_active'),
+                TernaryFilter::make('is_active')
+                    ->label(__('service-pinger::service-pinger.fields.is_active')),
 
-                TernaryFilter::make('is_up'),
+                TernaryFilter::make('is_up')
+                    ->label(__('service-pinger::service-pinger.fields.is_up')),
 
                 SelectFilter::make('method')
+                    ->label(__('service-pinger::service-pinger.fields.method'))
                     ->options(HttpMethod::class)
                     ->multiple(),
 
