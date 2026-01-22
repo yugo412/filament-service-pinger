@@ -22,6 +22,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Lang;
 use UnitEnum;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\PingNowAction;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\ViewCheckAction;
@@ -56,7 +57,9 @@ class ServiceResource extends Resource
 
     public static function getNavigationGroup(): string|UnitEnum|null
     {
-        return config('service-pinger.navigations.group');
+        $label = config('service-pinger.navigations.group');
+
+        return Lang::has($label) ? __($label) : $label;
     }
 
     public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
