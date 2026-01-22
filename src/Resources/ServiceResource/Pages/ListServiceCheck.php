@@ -71,6 +71,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
             })
             ->query(
                 $checkModel::query()
+                    ->with(['service'])
                     ->where('service_id', $this->service->getKey())
             )
             ->defaultSort('checked_at', 'desc')
