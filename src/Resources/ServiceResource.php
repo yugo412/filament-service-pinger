@@ -130,16 +130,19 @@ class ServiceResource extends Resource
 
                 TextColumn::make('last_checked_at')
                     ->label(__('service-pinger::service-pinger.fields.last_checked_at'))
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('created_at')
                     ->label(__('service-pinger::service-pinger.fields.created_at'))
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('updated_at')
                     ->label(__('service-pinger::service-pinger.fields.updated_at'))
+                    ->dateTime()
                     ->sortable()
                     ->toggleable(),
             ])

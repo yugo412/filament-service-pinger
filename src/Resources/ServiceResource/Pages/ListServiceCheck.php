@@ -117,13 +117,13 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
                     ->sortable(),
 
                 TextColumn::make('response_time')
-
                     ->label(__('service-pinger::service-pinger.fields.response_time'))
                     ->suffix(' ms')
                     ->sortable(),
 
                 TextColumn::make('checked_at')
                     ->label(__('service-pinger::service-pinger.fields.checked_at'))
+                    ->dateTime()
                     ->sortable(),
 
                 TextColumn::make('error_message')
