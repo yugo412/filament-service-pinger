@@ -68,15 +68,14 @@ class ServiceForm
             Tabs::make('Request')
                 ->columnSpanFull()
                 ->schema([
-                    Tab::make('Headers')
+                    Tab::make(__('service-pinger::service-pinger.tabs.headers'))
                         ->schema([
                             KeyValue::make('payload.headers')
-                                ->label(__('service-pinger::service-pinger.fields.headers'))
                                 ->hiddenLabel()
                                 ->columnSpanFull(),
                         ]),
 
-                    Tab::make('Body')
+                    Tab::make(__('service-pinger::service-pinger.tabs.body'))
                         ->schema([
                             KeyValue::make('payload.body')
                                 ->hiddenLabel()
@@ -86,7 +85,7 @@ class ServiceForm
                                 ->label(__('service-pinger::service-pinger.fields.body_as_json')),
                         ]),
 
-                    Tab::make('Authentication')
+                    Tab::make(__('service-pinger::service-pinger.tabs.auth'))
                         ->schema([
                             Radio::make('payload.auth.type')
                                 ->label(__('service-pinger::service-pinger.fields.auth_type'))
