@@ -65,6 +65,26 @@ php artisan migrate
 
 ---
 
+## Enable Plugin
+
+After installing the package, you need to register the plugin in your Filament panel.
+
+Open your Filament panel provider (for example `app/Providers/Filament/AdminPanelProvider.php`)
+and add the Service Pinger plugin:
+
+```php
+use Yugo\FilamentServicePinger\FilamentServicePingerPlugin;
+
+public function panel(Panel $panel): Panel
+{
+    return $panel
+        ->plugins([
+            FilamentServicePingerPlugin::make(),
+        ]);
+}
+
+---
+
 ## Configuration
 
 The configuration file is located at:
