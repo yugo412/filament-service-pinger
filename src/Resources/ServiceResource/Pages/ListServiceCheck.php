@@ -3,16 +3,21 @@
 namespace Yugo\FilamentServicePinger\Resources\ServiceResource\Pages;
 
 use Exception;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Bus;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\PingNowAction;
+use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
 use Yugo\FilamentServicePinger\Support\ModelResolver;
 
 class ListServiceCheck extends Page implements Tables\Contracts\HasTable
@@ -131,6 +136,20 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
                     ->toggleable(),
 
             ])
-            ->defaultSort('checked_at', 'desc');
+            ->filters([
+                TernaryFilter::make('is_up')
+                    ->label(__('service-pinger::service-pinger.fields.is_up')),
+
+                SelectFilter::make('method')
+                    ->label(__('service-pinger::service-pinger.fields.method'))
+                    ->options(HttpMethod::class)
+                    ->multiple(),
+            ])
+            ->recordActions([
+                DeleteAction::make(),
+            ])
+            ->toolbarActions([
+                DeleteBulkAction::make(),
+            ]);
     }
 }
