@@ -93,9 +93,20 @@ return [
     'navigations' => [
 
         /*
-         * Navigation group / parent menu.
-         * Example: "Monitoring", "Operations", etc.
-         */
+        |--------------------------------------------------------------------------
+        | Navigation Group / Parent Menu
+        |--------------------------------------------------------------------------
+        |
+        | Defines the parent group for the Filament navigation menu.
+        |
+        | You may provide:
+        | - A plain text label (e.g. "Monitoring")
+        | - Or a translation key (e.g. "service-pinger::navigation.group")
+        |
+        | If a translation key is provided and exists, it will be resolved
+        | at runtime based on the current locale.
+        |
+        */
         'group' => null,
 
         /*
