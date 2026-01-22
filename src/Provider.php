@@ -21,21 +21,18 @@ class Provider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadTranslationsFrom(
-            __DIR__.'/../resources/lang',
-            'service-pinger'
-        );
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'service-pinger');
 
         $this->publishes([
-            __DIR__.'/../config/service-pinger.php' => config_path('service-pinger.php'),
+            __DIR__.'/../resources/lang' => $this->app->langPath('vendor/service-pinger'),
+        ]);
+
+        $this->publishes([
+            __DIR__.'/../config/service-pinger.php' => $this->app->configPath('service-pinger.php'),
         ], 'service-pinger-config');
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/service-pinger'),
-        ], 'service-pinger-translations');
-
-        $this->publishes([
-            __DIR__.'/../database/migrations' => database_path('migrations'),
+            __DIR__.'/../database/migrations' => $this->app->databasePath('migrations'),
         ], 'service-pinger-migrations');
 
         $this->loadViewsFrom(
