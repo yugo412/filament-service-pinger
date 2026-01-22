@@ -17,7 +17,7 @@ class Service extends Model
         'name',
         'url',
         'method',
-        'exptected_status',
+        'expected_status',
         'timeout',
         'interval',
         'is_active',
