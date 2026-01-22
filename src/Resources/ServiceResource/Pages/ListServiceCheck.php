@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Bus;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
@@ -48,6 +49,20 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
         $serviceModel = ModelResolver::service();
 
         $this->service = $serviceModel::findOrFail($id);
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        return [
+            ServiceResource::getUrl() => __('service-pinger::service-pinger.titles.service'),
+            EditService::getUrl(['record' => $this->service->getKey()]) => $this->service->name,
+            null => __('service-pinger::service-pinger.titles.check'),
+        ];
+    }
+
+    public function getHeading(): string|Htmlable|null
+    {
+        return __('service-pinger::service-pinger.titles.check');
     }
 
     public function getSubheading(): ?string
