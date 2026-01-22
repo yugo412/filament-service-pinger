@@ -38,6 +38,12 @@ return [
         'expected_status' => 'Expected status',
     ],
 
+    'tabs' => [
+        'headers' => 'Headers',
+        'body' => 'Body',
+        'auth' => 'Authentication',
+    ],
+
     'tooltips' => [
         'expected_status' => 'Expected status is :status',
     ],
