@@ -73,15 +73,16 @@ Open your Filament panel provider (for example `app/Providers/Filament/AdminPane
 and add the Service Pinger plugin:
 
 ```php
-use Yugo\FilamentServicePinger\FilamentServicePingerPlugin;
+use Yugo\FilamentServicePinger\ServicePingerPlugin;
 
 public function panel(Panel $panel): Panel
 {
     return $panel
         ->plugins([
-            FilamentServicePingerPlugin::make(),
+            new ServicePingerPlugin(),
         ]);
 }
+```
 
 ---
 
@@ -99,7 +100,6 @@ config/service-pinger.php
 <?php
 
 return [
-
     'models' => [
         'service' => \Yugo\FilamentServicePinger\Models\Service::class,
         'check' => \Yugo\FilamentServicePinger\Models\ServiceCheck::class,
@@ -109,12 +109,19 @@ return [
         'ping' => \Yugo\FilamentServicePinger\Jobs\PingServiceJob::class,
     ],
 
+    'poll_interval' => 10,
+    
     'resources' => [
         'slug' => '/services',
     ],
 
-    'poll_interval' => 15,
+    'navigations' => [
+        'group' => null,
+        'sort' => 50,
+        'icon' => 'heroicon-o-signal',
+    ],
 ];
+
 ```
 
 ---
