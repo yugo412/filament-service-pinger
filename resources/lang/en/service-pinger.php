@@ -3,6 +3,10 @@
 return [
     'navigations' => [
         'service' => 'Services',
+    ],
+
+    'titles' => [
+        'service' => 'Services',
         'check' => 'Service Checks',
     ],
 

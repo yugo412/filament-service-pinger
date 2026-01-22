@@ -52,7 +52,7 @@ class ServiceResource extends Resource
 
     public static function getLabel(): ?string
     {
-        return __('service-pinger::service-pinger.navigations.service');
+        return __('service-pinger::service-pinger.titles.service');
     }
 
     public static function form(Schema $schema): Schema
