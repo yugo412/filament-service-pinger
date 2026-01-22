@@ -80,4 +80,33 @@ return [
         'slug' => '/services',
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Filament Navigation
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for how Service Pinger resources appear
+    | in the Filament navigation menu.
+    |
+    */
+
+    'navigations' => [
+
+        /*
+         * Navigation group / parent menu.
+         * Example: "Monitoring", "Operations", etc.
+         */
+        'group' => null,
+
+        /*
+         * Navigation sort order.
+         */
+        'sort' => 50,
+
+        /*
+         * Navigation icon (Heroicons).
+         */
+        'icon' => 'heroicon-o-signal',
+    ],
+
 ];
