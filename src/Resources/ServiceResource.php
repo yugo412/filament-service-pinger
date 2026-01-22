@@ -11,7 +11,6 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -19,9 +18,11 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\PingNowAction;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\ViewCheckAction;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
@@ -35,8 +36,6 @@ use Yugo\FilamentServicePinger\Support\UseServiceModel;
 class ServiceResource extends Resource
 {
     use UseServiceModel;
-
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::Signal;
 
     protected static bool $isScopedToTenant = false;
 
@@ -53,6 +52,25 @@ class ServiceResource extends Resource
     public static function getLabel(): ?string
     {
         return __('service-pinger::service-pinger.navigations.service');
+    }
+
+    public static function getNavigationGroup(): string|UnitEnum|null
+    {
+        return config('service-pinger.navigations.group');
+    }
+
+    public static function getNavigationIcon(): string|BackedEnum|Htmlable|null
+    {
+        if (filled(config('service-pinger.navigations.group'))) {
+            return null;
+        }
+
+        return config('service-pinger.navigations.icon');
+    }
+
+    public static function getNavigationSort(): ?int
+    {
+        return config('service-pinger.navigations.sort');
     }
 
     public static function form(Schema $schema): Schema
