@@ -16,7 +16,7 @@ coverage/
 .clover
 
 # Static analysis
-.phpstan.cache
+.phpstan
 .psalm.cache
 
 # Build / cache
