@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['8.2', '8.3', '8.3', '8.4', 'nightly']
+        php: ['8.2', '8.3', '8.4', '8.5', 'nightly']
 
     continue-on-error: ${{ matrix.php == 'nightly' }}
 
@@ -54,3 +54,7 @@ jobs:
       - name: Run PHPStan (level 1)
         if: ${{ !(matrix.php == 'nightly' && github.ref == 'refs/heads/main') }}
         run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+
+      - name: Run tests
+        if: ${{ !(matrix.php == 'nightly' && github.ref == 'refs/heads/main') }}
+        run: composer test

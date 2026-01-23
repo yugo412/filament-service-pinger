@@ -7,6 +7,7 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
@@ -61,58 +62,69 @@ class ServiceForm
                         ->required(),
                 ]),
 
-            Toggle::make('payload.store_payload_history')
-                ->label(__('service-pinger::service-pinger.fields.store_payload_history'))
+            Toggle::make('payload.skip_check_history')
+                ->label(__('service-pinger::service-pinger.fields.do_not_store_check'))
+                ->helperText(__('service-pinger::service-pinger.fields.do_not_store_check_helper'))
+                ->live()
                 ->default(false),
 
-            Tabs::make('Request')
-                ->columnSpanFull()
+            Fieldset::make(__('service-pinger::service-pinger.fields.request_payload'))
+                ->disabled(fn (Get $get): bool => $get('payload.skip_check_history'))
                 ->schema([
-                    Tab::make(__('service-pinger::service-pinger.tabs.headers'))
+                    Toggle::make('payload.store_payload_history')
+                        ->label(__('service-pinger::service-pinger.fields.store_payload_history'))
+                        ->default(false),
+
+                    Tabs::make(__('service-pinger::service-pinger.tabs.requests'))
+                        ->columnSpanFull()
                         ->schema([
-                            KeyValue::make('payload.headers')
-                                ->hiddenLabel()
-                                ->columnSpanFull(),
-                        ]),
+                            Tab::make(__('service-pinger::service-pinger.tabs.headers'))
+                                ->schema([
+                                    KeyValue::make('payload.headers')
+                                        ->hiddenLabel()
+                                        ->columnSpanFull(),
+                                ]),
 
-                    Tab::make(__('service-pinger::service-pinger.tabs.body'))
-                        ->schema([
-                            KeyValue::make('payload.body')
-                                ->hiddenLabel()
-                                ->columnSpanFull(),
+                            Tab::make(__('service-pinger::service-pinger.tabs.body'))
+                                ->schema([
+                                    KeyValue::make('payload.body')
+                                        ->hiddenLabel()
+                                        ->columnSpanFull(),
 
-                            Toggle::make('payload.body_as_json')
-                                ->label(__('service-pinger::service-pinger.fields.body_as_json')),
-                        ]),
+                                    Toggle::make('payload.body_as_json')
+                                        ->label(__('service-pinger::service-pinger.fields.body_as_json')),
+                                ]),
 
-                    Tab::make(__('service-pinger::service-pinger.tabs.auth'))
-                        ->schema([
-                            Radio::make('payload.auth.type')
-                                ->label(__('service-pinger::service-pinger.fields.auth_type'))
-                                ->options(AuthType::class)
-                                ->enum(AuthType::class)
-                                ->live(),
+                            Tab::make(__('service-pinger::service-pinger.tabs.auth'))
+                                ->schema([
+                                    Radio::make('payload.auth.type')
+                                        ->label(__('service-pinger::service-pinger.fields.auth_type'))
+                                        ->options(AuthType::class)
+                                        ->enum(AuthType::class)
+                                        ->live(),
 
-                            TextInput::make('payload.auth.username')
-                                ->label(__('service-pinger::service-pinger.fields.username'))
-                                ->visible(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic)
-                                ->required(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic),
+                                    TextInput::make('payload.auth.username')
+                                        ->label(__('service-pinger::service-pinger.fields.username'))
+                                        ->visible(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic)
+                                        ->required(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic),
 
-                            TextInput::make('payload.auth.password')
-                                ->label(__('service-pinger::service-pinger.fields.password'))
-                                ->password()
-                                ->revealable()
-                                ->visible(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic)
-                                ->required(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic),
+                                    TextInput::make('payload.auth.password')
+                                        ->label(__('service-pinger::service-pinger.fields.password'))
+                                        ->password()
+                                        ->revealable()
+                                        ->visible(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic)
+                                        ->required(fn (Get $get): bool => $get('payload.auth.type') == AuthType::Basic),
 
-                            TextInput::make('payload.auth.token')
-                                ->label(__('service-pinger::service-pinger.fields.token'))
-                                ->password()
-                                ->revealable()
-                                ->visible(fn (Get $get): bool => $get('payload.auth.type') === AuthType::Bearer)
-                                ->required(fn (Get $get): bool => $get('payload.auth.type') === AuthType::Bearer),
+                                    TextInput::make('payload.auth.token')
+                                        ->label(__('service-pinger::service-pinger.fields.token'))
+                                        ->password()
+                                        ->revealable()
+                                        ->visible(fn (Get $get): bool => $get('payload.auth.type') === AuthType::Bearer)
+                                        ->required(fn (Get $get): bool => $get('payload.auth.type') === AuthType::Bearer),
+                                ]),
                         ]),
                 ]),
+
         ];
     }
 }

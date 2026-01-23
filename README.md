@@ -6,8 +6,6 @@
 
 A lightweight **service monitoring plugin for Filament**, designed to periodically ping endpoints, record health checks, and provide a clean foundation for future alerting and incident management.
 
----
-
 ## Features
 
 - Filament Resource for managing monitored services
@@ -21,16 +19,12 @@ A lightweight **service monitoring plugin for Filament**, designed to periodical
 - Configurable UI polling interval
 - Configurable resource slug (conflict-safe)
 
----
-
 ## Requirements
 
 - PHP 8.2+
 - Laravel 11+
 - Filament 4.x
 - Queue worker configured
-
----
 
 ## Installation
 
@@ -39,8 +33,6 @@ Install the package via Composer:
 ```bash
 composer require yugo/filament-service-pinger
 ```
-
----
 
 ## Publish Vendor Assets
 
@@ -63,8 +55,6 @@ Run migrations:
 php artisan migrate
 ```
 
----
-
 ## Enable Plugin
 
 After installing the package, you need to register the plugin in your Filament panel.
@@ -83,8 +73,6 @@ public function panel(Panel $panel): Panel
         ]);
 }
 ```
-
----
 
 ## Configuration
 
@@ -124,8 +112,6 @@ return [
 
 ```
 
----
-
 ## Scheduler Setup (Required)
 
 This package does not automatically register a scheduler.
@@ -142,8 +128,6 @@ Schedule::command('service-pinger:run')
     ->withoutOverlapping();
 ```
 
----
-
 ## Queue Setup
 
 Make sure your queue worker is running:
@@ -152,7 +136,13 @@ Make sure your queue worker is running:
 php artisan queue:work
 ```
 
----
+## Running Tests
+
+This package includes automated tests to ensure core functionality works as expected across supported PHP versions.
+
+```bash
+composer test
+```
 
 ## License
 
