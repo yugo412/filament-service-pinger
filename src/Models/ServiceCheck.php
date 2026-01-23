@@ -4,6 +4,7 @@ namespace Yugo\FilamentServicePinger\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
 
 class ServiceCheck extends Model
 {
@@ -26,6 +27,7 @@ class ServiceCheck extends Model
         return [
             'checked_at' => 'datetime',
             'payload' => 'array',
+            'method' => HttpMethod::class,
         ];
     }
 

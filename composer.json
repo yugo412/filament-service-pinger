@@ -17,7 +17,8 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^8.2|^8.3",
-    "filament/filament": "^4.1"
+    "filament/filament": "^4.1",
+    "phiki/phiki": "^2.1"
   },
   "extra": {
     "laravel": {
