@@ -4,6 +4,8 @@ namespace Yugo\FilamentServicePinger\Support;
 
 final class JobResolver
 {
+    use UseResolver;
+
     public static function ping(): string
     {
         return self::resolve('ping', 'jobs');
