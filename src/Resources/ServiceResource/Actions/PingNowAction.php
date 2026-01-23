@@ -2,11 +2,11 @@
 
 namespace Yugo\FilamentServicePinger\Resources\ServiceResource\Actions;
 
-use Error;
 use Filament\Actions\Action;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Bus;
+use Yugo\FilamentServicePinger\Support\JobResolver;
 
 class PingNowAction
 {
@@ -14,11 +14,7 @@ class PingNowAction
     {
         if (empty($action)) {
             $action = function (Model $record): void {
-                $pingJobClass = config('service-pinger.jobs.ping');
-
-                if (! class_exists($pingJobClass)) {
-                    throw new Error("Class ${pingJobClass} does not exists");
-                }
+                $pingJobClass = JobResolver::ping();
 
                 Bus::dispatch(new $pingJobClass($record->getKey()));
             };
