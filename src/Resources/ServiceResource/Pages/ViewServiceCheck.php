@@ -55,6 +55,11 @@ class ViewServiceCheck extends Page implements HasInfolists
         return __('service-pinger::service-pinger.titles.view_check');
     }
 
+    public function getBreadcrumb(): ?string
+    {
+        return $this->getHeading();
+    }
+
     public function infolist(Schema $schema): Schema
     {
         return $schema->record($this->check)
