@@ -2,11 +2,12 @@
 
 namespace Yugo\FilamentServicePinger\Console\Commands;
 
-use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Bus;
+use Yugo\FilamentServicePinger\Support\JobResolver;
+use Yugo\FilamentServicePinger\Support\ModelResolver;
 
 class ServicePingerCommand extends Command
 {
@@ -16,12 +17,8 @@ class ServicePingerCommand extends Command
 
     public function handle(): int
     {
-        $serviceModel = config('service-pinger.models.service');
-        $jobClass = config('service-pinger.jobs.ping');
-
-        if (! class_exists($jobClass)) {
-            throw new Exception("Class ${jobClass} does not exists");
-        }
+        $serviceModel = ModelResolver::service();
+        $jobClass = JobResolver::ping();
 
         $now = Carbon::now();
 
