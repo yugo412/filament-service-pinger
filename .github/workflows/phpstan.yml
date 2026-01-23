@@ -54,3 +54,7 @@ jobs:
       - name: Run PHPStan (level 1)
         if: ${{ !(matrix.php == 'nightly' && github.ref == 'refs/heads/main') }}
         run: vendor/bin/phpstan analyse --memory-limit=1G --no-progress
+
+      - name: Run tests
+        if: ${{ !(matrix.php == 'nightly' && github.ref == 'refs/heads/main') }}
+        run: composer test

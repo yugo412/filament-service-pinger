@@ -29,6 +29,25 @@
   },
   "require-dev": {
     "laravel/pint": "^1.27",
-    "phpstan/phpstan": "^2.1"
+    "phpstan/phpstan": "^2.1",
+    "orchestra/testbench": "^10.9"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "lint": [
+      "@php vendor/bin/pint --ansi",
+      "@php vendor/bin/phpstan analyse --verbose --ansi"
+    ],
+    "test": "vendor/bin/phpunit"
   }
 }
