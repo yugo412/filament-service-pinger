@@ -15,6 +15,7 @@ use Yugo\FilamentServicePinger\Contracts\Pinger;
 use Yugo\FilamentServicePinger\Events\ServiceChecked;
 use Yugo\FilamentServicePinger\Events\ServiceRecovered;
 use Yugo\FilamentServicePinger\Events\ServiceWentDown;
+use Yugo\FilamentServicePinger\Support\ModelResolver;
 
 class PingServiceJob implements ShouldQueue
 {
@@ -31,8 +32,8 @@ class PingServiceJob implements ShouldQueue
 
     public function handle(Pinger $pinger): void
     {
-        $serviceModel = config('service-pinger.models.service');
-        $checkModel = config('service-pinger.models.check');
+        $serviceModel = ModelResolver::service();
+        $checkModel = ModelResolver::check();
 
         $service = $serviceModel::query()->find($this->serviceId);
 

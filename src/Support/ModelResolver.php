@@ -2,15 +2,17 @@
 
 namespace Yugo\FilamentServicePinger\Support;
 
-class ModelResolver
+final class ModelResolver
 {
+    use UseResolver;
+
     public static function service(): string
     {
-        return config('service-pinger.models.service');
+        return self::resolve('service', 'models');
     }
 
     public static function check(): string
     {
-        return config('service-pinger.models.check');
+        return self::resolve('check', 'models');
     }
 }

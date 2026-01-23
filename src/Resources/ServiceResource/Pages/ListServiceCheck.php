@@ -2,7 +2,6 @@
 
 namespace Yugo\FilamentServicePinger\Resources\ServiceResource\Pages;
 
-use Exception;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\Pages\Page;
@@ -18,6 +17,7 @@ use Illuminate\Support\Facades\Bus;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\PingNowAction;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
+use Yugo\FilamentServicePinger\Support\JobResolver;
 use Yugo\FilamentServicePinger\Support\ModelResolver;
 
 class ListServiceCheck extends Page implements Tables\Contracts\HasTable
@@ -38,10 +38,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
             PingNowAction::make(
                 name: 'ping_now',
                 action: function (): void {
-                    $jobClass = config('service-pinger.jobs.ping');
-                    if (! class_exists($jobClass)) {
-                        throw new Exception("Class {$jobClass} does not exists");
-                    }
+                    $jobClass = JobResolver::ping();
 
                     Bus::dispatch(new $jobClass($this->service->getKey()));
                 },
