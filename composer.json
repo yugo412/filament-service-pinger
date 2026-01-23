@@ -16,7 +16,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": "^8.2|^8.3",
+    "php": ">=8.2",
     "filament/filament": "^4.1",
     "phiki/phiki": "^2.1"
   },
@@ -28,6 +28,7 @@
     }
   },
   "require-dev": {
-    "laravel/pint": "^1.27"
+    "laravel/pint": "^1.27",
+    "phpstan/phpstan": "^2.1"
   }
 }
