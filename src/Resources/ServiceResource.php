@@ -32,6 +32,7 @@ use Yugo\FilamentServicePinger\Resources\ServiceResource\Pages\CreateService;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Pages\EditService;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Pages\ListService;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Pages\ListServiceCheck;
+use Yugo\FilamentServicePinger\Resources\ServiceResource\Pages\ViewServiceCheck;
 use Yugo\FilamentServicePinger\Support\UseServiceModel;
 
 class ServiceResource extends Resource
@@ -112,7 +113,9 @@ class ServiceResource extends Resource
                     ->searchable(),
 
                 TextColumn::make('method')
-                    ->label(__('service-pinger::service-pinger.fields.method')),
+                    ->label(__('service-pinger::service-pinger.fields.method'))
+                    ->badge()
+                    ->sortable(),
 
                 TextColumn::make('url')
                     ->label(__('service-pinger::service-pinger.fields.url'))
@@ -138,13 +141,13 @@ class ServiceResource extends Resource
                     ->label(__('service-pinger::service-pinger.fields.created_at'))
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
                     ->label(__('service-pinger::service-pinger.fields.updated_at'))
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
@@ -187,6 +190,7 @@ class ServiceResource extends Resource
             'create' => CreateService::route('/create'),
             'edit' => EditService::route('/{record}/edit'),
             'checks' => ListServiceCheck::route('/{id}/checks'),
+            'view-checks' => ViewServiceCheck::route('/checks/{id}'),
         ];
     }
 

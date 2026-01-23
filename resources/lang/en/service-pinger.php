@@ -8,6 +8,7 @@ return [
     'titles' => [
         'service' => 'Services',
         'check' => 'Service Checks',
+        'view_check' => 'View Service Checks',
     ],
 
     'fields' => [
@@ -36,6 +37,10 @@ return [
         'error_message' => 'Message',
         'store_payload_history' => 'Store payload in ping history',
         'expected_status' => 'Expected status',
+        'no_auth' => 'No authentication',
+        'raw' => 'Copyable raw',
+        'ms' => ' ms',
+        'no_error_message' => 'No error message',
     ],
 
     'tabs' => [

@@ -95,6 +95,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
                     ->where('service_id', $this->service->getKey())
             )
             ->defaultSort('checked_at', 'desc')
+            ->recordUrl(fn (Model $record): string => ViewServiceCheck::getUrl(['id' => $record->getKey()]))
             ->columns([
                 IconColumn::make('is_up')
                     ->label(__('service-pinger::service-pinger.fields.is_up'))
@@ -102,6 +103,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
 
                 TextColumn::make('method')
                     ->label(__('service-pinger::service-pinger.fields.method'))
+                    ->badge()
                     ->sortable()
                     ->searchable(),
 
@@ -123,7 +125,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
 
                 TextColumn::make('response_time')
                     ->label(__('service-pinger::service-pinger.fields.response_time'))
-                    ->suffix(' ms')
+                    ->suffix(__('service-pinger::service-pinger.fields.ms'))
                     ->sortable(),
 
                 TextColumn::make('checked_at')
@@ -133,6 +135,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
 
                 TextColumn::make('error_message')
                     ->label(__('service-pinger::service-pinger.fields.error_message'))
+                    ->words(10)
                     ->toggleable(),
 
             ])
