@@ -2,13 +2,16 @@
 
 namespace Tests\Fixtures\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tests\Fixtures\Models\Factories\ServiceFactory;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
 
 class Service extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     public $table = 'pinger_services';
@@ -28,6 +31,11 @@ class Service extends Model
         'next_check_at',
         'payload',
     ];
+
+    protected static function newFactory()
+    {
+        return ServiceFactory::new();
+    }
 
     public function casts(): array
     {
