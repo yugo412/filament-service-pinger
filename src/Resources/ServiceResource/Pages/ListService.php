@@ -5,6 +5,7 @@ namespace Yugo\FilamentServicePinger\Resources\ServiceResource\Pages;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
+use Yugo\FilamentServicePinger\Widgets\ServiceUptimeOverview;
 
 class ListService extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListService extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ServiceUptimeOverview::class,
         ];
     }
 }

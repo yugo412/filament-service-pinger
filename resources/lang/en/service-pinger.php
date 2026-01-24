@@ -69,4 +69,10 @@ return [
     'notifications' => [
         'ping_dispatched_title' => 'Ping dispatched',
     ],
+
+    'widgets' => [
+        'total_service' => 'Total Services',
+        'service_up' => 'Service UP',
+        'service_down' => 'Service DOWN',
+    ],
 ];
