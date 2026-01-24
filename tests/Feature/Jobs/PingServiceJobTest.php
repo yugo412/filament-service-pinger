@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Jobs;
+namespace Tests\Feature\Jobs;
 
 use Illuminate\Support\Facades\Event;
 use Tests\Fixtures\Models\ServiceCheck;
@@ -31,11 +31,7 @@ class PingServiceJobTest extends TestCase
     {
         Event::fake();
 
-        $service = $this->serviceModelResolver::create([
-            'name' => fake()->word,
-            'url' => fake()->url,
-            'is_active' => true,
-            'is_up' => true,
+        $service = $this->serviceModelResolver::factory()->create([
             'payload' => [
                 'skip_check_history' => true,
             ],
@@ -61,11 +57,7 @@ class PingServiceJobTest extends TestCase
     {
         Event::fake();
 
-        $service = $this->serviceModelResolver::create([
-            'name' => fake()->word,
-            'url' => fake()->url,
-            'is_active' => true,
-            'is_up' => true,
+        $service = $this->serviceModelResolver::factory()->create([
             'payload' => [],
         ]);
 
@@ -89,10 +81,7 @@ class PingServiceJobTest extends TestCase
     {
         Event::fake();
 
-        $service = $this->serviceModelResolver::create([
-            'name' => fake()->word,
-            'url' => fake()->url,
-            'is_active' => true,
+        $service = $this->serviceModelResolver::factory()->create([
             'is_up' => true,
             'payload' => [],
         ]);
@@ -113,10 +102,7 @@ class PingServiceJobTest extends TestCase
     {
         Event::fake();
 
-        $service = $this->serviceModelResolver::create([
-            'name' => fake()->word,
-            'url' => fake()->url,
-            'is_active' => true,
+        $service = $this->serviceModelResolver::factory()->create([
             'is_up' => false,
             'payload' => [],
         ]);
