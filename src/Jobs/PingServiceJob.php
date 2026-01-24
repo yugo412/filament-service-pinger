@@ -48,19 +48,24 @@ class PingServiceJob implements ShouldQueue
         DB::transaction(function () use ($checkModel, $service, $ping, $wasUp): void {
             $now = Carbon::now();
 
-            $check = $checkModel::create([
-                'service_id' => $service->getKey(),
-                'url' => $service->url,
-                'method' => $service->method,
-                'is_up' => $ping->isUp,
-                'status_code' => $ping->statusCode,
-                'response_time' => $ping->responseTimeMs,
-                'error_message' => $ping->error,
-                'checked_at' => $now,
-                'payload' => data_get($service->payload, 'store_payload_history', false)
-                    ? Arr::except($service->payload, 'store_payload_history')
-                    : [],
-            ]);
+            $skipHistory = data_get($service->payload, 'skip_check_history', false);
+
+            $check = null;
+            if (! $skipHistory) {
+                $check = $checkModel::create([
+                    'service_id' => $service->getKey(),
+                    'url' => $service->url,
+                    'method' => $service->method,
+                    'is_up' => $ping->isUp,
+                    'status_code' => $ping->statusCode,
+                    'response_time' => $ping->responseTimeMs,
+                    'error_message' => $ping->error,
+                    'checked_at' => $now,
+                    'payload' => data_get($service->payload, 'store_payload_history', false)
+                        ? Arr::except($service->payload, 'store_payload_history')
+                        : [],
+                ]);
+            }
 
             $service->update([
                 'is_up' => $ping->isUp,

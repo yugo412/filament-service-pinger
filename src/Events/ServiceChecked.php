@@ -15,8 +15,8 @@ class ServiceChecked
 
     public function __construct(
         public readonly Model $service,
-        public readonly Model $check,
-        public readonly bool $isUp,
+        public readonly ?Model $check = null,
+        public readonly bool $isUp = false,
     ) {}
 
     /**

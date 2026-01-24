@@ -41,9 +41,13 @@ return [
         'raw' => 'Copyable raw',
         'ms' => ' ms',
         'no_error_message' => 'No error message',
+        'do_not_store_check' => 'Do not store check history',
+        'do_not_store_check_helper' => 'Run checks without saving history. Only the latest status and check time will be kept.',
+        'request_payload' => 'Request Payloads',
     ],
 
     'tabs' => [
+        'requests' => 'Requests',
         'headers' => 'Headers',
         'body' => 'Body',
         'auth' => 'Authentication',

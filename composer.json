@@ -16,7 +16,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": "^8.2|^8.3",
+    "php": ">=8.2",
     "filament/filament": "^4.1",
     "phiki/phiki": "^2.1"
   },
@@ -28,6 +28,26 @@
     }
   },
   "require-dev": {
-    "laravel/pint": "^1.27"
+    "laravel/pint": "^1.27",
+    "phpstan/phpstan": "^2.1",
+    "orchestra/testbench": "^10.9"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "lint": [
+      "@php vendor/bin/pint --ansi",
+      "@php vendor/bin/phpstan analyse --verbose --ansi"
+    ],
+    "test": "vendor/bin/phpunit"
   }
 }

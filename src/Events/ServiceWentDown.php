@@ -15,7 +15,7 @@ class ServiceWentDown
 
     public function __construct(
         public readonly Model $service,
-        public readonly Model $check,
+        public readonly ?Model $check = null,
     ) {}
 
     /**
