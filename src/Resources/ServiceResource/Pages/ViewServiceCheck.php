@@ -19,6 +19,7 @@ use Filament\Support\Enums\TextSize;
 use Filament\Support\Icons\Heroicon;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
+use Yugo\FilamentServicePinger\Models\ServiceCheck;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
 use Yugo\FilamentServicePinger\Support\ModelResolver;
 
@@ -27,6 +28,8 @@ class ViewServiceCheck extends Page implements HasInfolists
     use InteractsWithInfolists;
 
     protected static string $resource = ServiceResource::class;
+
+    protected static ?string $model = ServiceCheck::class;
 
     protected static bool $shouldRegisterNavigation = false;
 
@@ -43,11 +46,11 @@ class ViewServiceCheck extends Page implements HasInfolists
         ];
     }
 
-    public function mount(int|string $id): void
+    public function mount(int|string $record): void
     {
         $checkModel = ModelResolver::check();
 
-        $this->check = $checkModel::with(['service'])->findOrFail($id);
+        $this->check = $checkModel::with(['service'])->findOrFail($record);
     }
 
     public function getHeading(): string|Htmlable|null
@@ -90,6 +93,7 @@ class ViewServiceCheck extends Page implements HasInfolists
                                 TextEntry::make('status_code')
                                     ->label(__('service-pinger::service-pinger.fields.status_code'))
                                     ->size(TextSize::Large)
+                                    ->default('-')
                                     ->hint(
                                         fn (Model $record): string => __('service-pinger::service-pinger.tooltips.expected_status', [
                                             'status' => $record->service->expected_status,
@@ -99,6 +103,7 @@ class ViewServiceCheck extends Page implements HasInfolists
                                 TextEntry::make('response_time')
                                     ->label(__('service-pinger::service-pinger.fields.response_time'))
                                     ->suffix(__('service-pinger::service-pinger.fields.ms'))
+                                    ->default('-')
                                     ->size(TextSize::Large),
 
                                 CodeEntry::make('error_message')
