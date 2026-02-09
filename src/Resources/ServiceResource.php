@@ -189,8 +189,8 @@ class ServiceResource extends Resource
             'index' => ListService::route('/'),
             'create' => CreateService::route('/create'),
             'edit' => EditService::route('/{record}/edit'),
-            'checks' => ListServiceCheck::route('/{id}/checks'),
-            'view-checks' => ViewServiceCheck::route('/checks/{id}'),
+            'checks' => ListServiceCheck::route('/{record}/checks'),
+            'view-checks' => ViewServiceCheck::route('/checks/{record}'),
         ];
     }
 
