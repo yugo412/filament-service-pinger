@@ -4,10 +4,12 @@ namespace Yugo\FilamentServicePinger\Resources\ServiceResource\Pages;
 
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Resources\Pages\Concerns\InteractsWithRecord;
 use Filament\Resources\Pages\Page;
-use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -20,17 +22,16 @@ use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
 use Yugo\FilamentServicePinger\Support\JobResolver;
 use Yugo\FilamentServicePinger\Support\ModelResolver;
 
-class ListServiceCheck extends Page implements Tables\Contracts\HasTable
+class ListServiceCheck extends Page implements HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithRecord;
+    use InteractsWithTable;
 
     protected static string $resource = ServiceResource::class;
 
     protected static bool $shouldRegisterNavigation = false;
 
     protected string $view = 'filament-service-pinger::pages.service-checks';
-
-    public ?object $service;
 
     protected function getHeaderActions(): array
     {
@@ -46,18 +47,16 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
         ];
     }
 
-    public function mount(int|string $id): void
+    public function mount(int|string $record): void
     {
-        $serviceModel = ModelResolver::service();
-
-        $this->service = $serviceModel::findOrFail($id);
+        $this->record = $this->resolveRecord($record);
     }
 
     public function getBreadcrumbs(): array
     {
         return [
             ServiceResource::getUrl() => __('service-pinger::service-pinger.titles.service'),
-            EditService::getUrl(['record' => $this->service->getKey()]) => $this->service->name,
+            EditService::getUrl(['record' => $this->record->getKey()]) => $this->record->name,
             null => __('service-pinger::service-pinger.titles.check'),
         ];
     }
@@ -69,7 +68,7 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
 
     public function getSubheading(): ?string
     {
-        return $this->service->name;
+        return $this->record->name;
     }
 
     public function table(Table $table): Table
@@ -89,10 +88,10 @@ class ListServiceCheck extends Page implements Tables\Contracts\HasTable
             ->query(
                 $checkModel::query()
                     ->with(['service'])
-                    ->where('service_id', $this->service->getKey())
+                    ->where('service_id', $this->record->getKey())
             )
             ->defaultSort('checked_at', 'desc')
-            ->recordUrl(fn (Model $record): string => ViewServiceCheck::getUrl(['id' => $record->getKey()]))
+            ->recordUrl(fn (Model $record): string => ViewServiceCheck::getUrl(['record' => $record->getKey()]))
             ->columns([
                 IconColumn::make('is_up')
                     ->label(__('service-pinger::service-pinger.fields.is_up'))
