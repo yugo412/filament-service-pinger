@@ -107,7 +107,7 @@ class ServiceResource extends Resource
 
                 TextColumn::make('name')
                     ->label(__('service-pinger::service-pinger.fields.name'))
-                    ->url(fn (Model $record): string => ListServiceCheck::getUrl(['id' => $record->getKey()]))
+                    ->url(fn (Model $record): string => ListServiceCheck::getUrl(['record' => $record->getKey()]))
                     ->weight(FontWeight::Bold)
                     ->sortable()
                     ->searchable(),
