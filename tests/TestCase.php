@@ -19,8 +19,27 @@ class TestCase extends Orchestra
 
     protected function getPackageProviders($app)
     {
+        // Order matters: all Filament providers must register BEFORE Livewire. Livewire's
+        // mechanism registration resolves `Livewire\Mechanisms\DataStore` and binds it as a
+        // singleton instance; if Filament\Support's `DataStoreOverride` binding runs after that,
+        // it drops the instance and every resolution returns a new store (breaking error bags).
         return [
+            \BladeUI\Heroicons\BladeHeroiconsServiceProvider::class,
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
+            \RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider::class,
+            \Filament\Support\SupportServiceProvider::class,
+            \Filament\Schemas\SchemasServiceProvider::class,
+            \Filament\Forms\FormsServiceProvider::class,
+            \Filament\Infolists\InfolistsServiceProvider::class,
+            \Filament\Notifications\NotificationsServiceProvider::class,
+            \Filament\Actions\ActionsServiceProvider::class,
+            \Filament\Tables\TablesServiceProvider::class,
+            \Filament\Widgets\WidgetsServiceProvider::class,
+            \Filament\QueryBuilder\QueryBuilderServiceProvider::class,
+            \Filament\FilamentServiceProvider::class,
+            \Livewire\LivewireServiceProvider::class,
             \Yugo\FilamentServicePinger\Provider::class,
+            \Tests\Providers\Filament\AdminPanelProvider::class,
         ];
     }
 
@@ -29,6 +48,9 @@ class TestCase extends Orchestra
         // Model resolver
         $app['config']->set('service-pinger.models.service', \Tests\Fixtures\Models\Service::class);
         $app['config']->set('service-pinger.models.check', \Tests\Fixtures\Models\ServiceCheck::class);
+
+        // Encryption key required by the Filament panel middleware (EncryptCookies)
+        $app['config']->set('app.key', 'base64:'.base64_encode(str_repeat('a', 32)));
 
         // Database (sqlite in-memory)
         $app['config']->set('database.default', 'testing');

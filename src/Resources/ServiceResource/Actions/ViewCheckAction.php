@@ -14,6 +14,6 @@ class ViewCheckAction
         return Action::make($name ?? 'checks')
             ->label(__('service-pinger::service-pinger.actions.view_check'))
             ->icon(Heroicon::Document)
-            ->url(fn (Model $record): string => ServiceResource::getUrl('checks', ['id' => $record->getKey()]));
+            ->url(fn (Model $record): string => ServiceResource::getUrl('checks', ['record' => $record->getKey()]));
     }
 }

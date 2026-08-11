@@ -42,7 +42,7 @@ class ViewServiceCheck extends Page implements HasInfolists
         return [
             DeleteAction::make()
                 ->record($this->check)
-                ->successRedirectUrl(fn (Model $record): string => ListServiceCheck::getUrl(['id' => $record->service->getKey()])),
+                ->successRedirectUrl(fn (Model $record): string => ListServiceCheck::getUrl(['record' => $record->service->getKey()])),
         ];
     }
 
