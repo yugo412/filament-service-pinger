@@ -21,6 +21,8 @@ use Yugo\FilamentServicePinger\Resources\ServiceResource\Actions\PingNowAction;
 use Yugo\FilamentServicePinger\Resources\ServiceResource\Enums\HttpMethod;
 use Yugo\FilamentServicePinger\Support\JobResolver;
 use Yugo\FilamentServicePinger\Support\ModelResolver;
+use Yugo\FilamentServicePinger\Widgets\ServiceCheckOverview;
+use Yugo\FilamentServicePinger\Widgets\ServicePingOverview;
 
 class ListServiceCheck extends Page implements HasTable
 {
@@ -50,6 +52,21 @@ class ListServiceCheck extends Page implements HasTable
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ServiceCheckOverview::class,
+            ServicePingOverview::class,
+        ];
+    }
+
+    public function getWidgetData(): array
+    {
+        return [
+            'record' => $this->record?->getKey(),
+        ];
     }
 
     public function getBreadcrumbs(): array

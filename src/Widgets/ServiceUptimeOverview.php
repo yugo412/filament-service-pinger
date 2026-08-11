@@ -20,7 +20,7 @@ class ServiceUptimeOverview extends StatsOverviewWidget
         return [
             Stat::make(__('service-pinger::service-pinger.widgets.total_service'), $total),
 
-            Stat::make(__('service-pinger::service-pinger.widgets.service_down'), $up)
+            Stat::make(__('service-pinger::service-pinger.widgets.service_up'), $up)
                 ->color('success')
                 ->icon(Heroicon::OutlinedCheckCircle),
 
