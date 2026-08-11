@@ -69,4 +69,20 @@ return [
     'notifications' => [
         'ping_dispatched_title' => 'Ping dispatched',
     ],
+
+    'widgets' => [
+        'total_service' => 'Total Services',
+        'service_up' => 'Service UP',
+        'service_down' => 'Service DOWN',
+        'total_check' => 'Total Checks',
+        'check_up' => 'Checks UP',
+        'check_down' => 'Checks DOWN',
+        'uptime' => 'Uptime',
+        'uptime_description' => 'Based on :count checks',
+        'avg_response_time' => 'Average Response Time',
+        'latest_response_time' => 'Latest: :time ms',
+        'last_checked' => 'Last Checked',
+        'status_up' => 'Up',
+        'status_down' => 'Down',
+    ],
 ];
