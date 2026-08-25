@@ -5,7 +5,6 @@ namespace Yugo\FilamentServicePinger;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Yugo\FilamentServicePinger\Resources\ServiceResource;
-use Yugo\FilamentServicePinger\Widgets\ServiceUptimeOverview;
 
 class ServicePingerPlugin implements Plugin
 {
@@ -19,9 +18,6 @@ class ServicePingerPlugin implements Plugin
         $panel
             ->resources([
                 ServiceResource::class,
-            ])
-            ->widgets([
-                ServiceUptimeOverview::class,
             ]);
     }
 
