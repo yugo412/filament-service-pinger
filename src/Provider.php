@@ -3,6 +3,7 @@
 namespace Yugo\FilamentServicePinger;
 
 use Illuminate\Support\ServiceProvider;
+use Yugo\FilamentServicePinger\Console\Commands\PruneServiceChecksCommand;
 use Yugo\FilamentServicePinger\Console\Commands\ServicePingerCommand;
 use Yugo\FilamentServicePinger\Contracts\Pinger;
 use Yugo\FilamentServicePinger\Services\HttpServicePinger;
@@ -42,6 +43,7 @@ class Provider extends ServiceProvider
 
         $this->commands([
             ServicePingerCommand::class,
+            PruneServiceChecksCommand::class,
         ]);
     }
 }
